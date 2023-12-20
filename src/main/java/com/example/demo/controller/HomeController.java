@@ -8,10 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String Home(){
-        return "index";
-    }
-    @GetMapping("/game")
-    public String Game(){
         return "game";
     }
 }

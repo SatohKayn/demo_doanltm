@@ -153,7 +153,8 @@ public class GameController {
                 if (time < 0) {
                     room.getPlayers().remove(room.getCurrentPlayer());
                     timer.cancel();
-                    goToNextPlayer(room);
+                    if(room.getPlayers().size() != 1)
+                        goToNextPlayer(room);
                 } else {
                     template.convertAndSend("/room/timer/" + room.getRoomId(), time);
                     time--;

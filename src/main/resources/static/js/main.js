@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var yourAnswer = document.getElementById("yourAnswer");
   var menu = document.getElementById("menu-page");
   var game = document.getElementById("game-page");
+  var winner = document.getElementById("AnserValid");
   function createRoom(event) {
     username = prompt("Enter your name");
     menu.classList.add("hidden");
@@ -23,14 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
           stompClient.subscribe("/room/roomCreated", function (response) {
             var roomInfo = JSON.parse(response.body);
             roomIdText.textContent = roomInfo.roomId;
-            stompClient.subscribe(
-              "/room/" + roomInfo.roomId,
-              function (response) {
-                var roomInfo = JSON.parse(response.body);
-                getListUsername(roomInfo);
-                currentWord.textContent = roomInfo.currentWord;
-              }
-            );
+
             onStart(username, roomInfo);
             onConnected(username, roomInfo);
           });
@@ -64,17 +58,12 @@ document.addEventListener("DOMContentLoaded", function () {
             var roomInfo = JSON.parse(response.body);
             roomIdText.textContent = roomInfo.roomId;
             getListUsername(roomInfo);
+            updatePlayerList(roomInfo.playerStatus);
+            console.log(roomInfo.playerStatus);
             currentWord.textContent = roomInfo.currentWord;
             onConnected(username, roomInfo);
             onStart(username, roomInfo);
           });
-
-          stompClient.subscribe(
-              "/room/joinRoomStatus/",
-              function (response) {
-                alert(response.body);
-              }
-          );
 
           stompClient.send(
             "/app/game.joinRoom/" + roomId,
@@ -94,7 +83,13 @@ document.addEventListener("DOMContentLoaded", function () {
       ready(name, roomInfo.roomId);
     });
 
-
+    stompClient.subscribe("/room/" + roomInfo.roomId, function (response) {
+      var roomInfo = JSON.parse(response.body);
+      console.log(roomInfo.playerStatus);
+      updatePlayerList(roomInfo.playerStatus);
+      getListUsername(roomInfo);
+      currentWord.textContent = roomInfo.currentWord;
+    });
 
     stompClient.subscribe(
       "/room/getCurrentPlayer/" + roomInfo.roomId,
@@ -114,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
     stompClient.subscribe(
       "/room/winner/" + roomInfo.roomId,
       function (response) {
-        alert(response.body);
+        winner.innerHTML = "Winner Winner Chicken Dinner " + response.body;
       }
     );
 
@@ -133,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {},
       JSON.stringify({ content: "ready", sender: name })
     );
+    readyButton.classList.add("hidden");
   }
 
   function onStart(name, RoomInfo) {
@@ -168,6 +164,36 @@ document.addEventListener("DOMContentLoaded", function () {
       ul.appendChild(li);
     }
     playersList.appendChild(ul);
+  }
+
+  function updatePlayerList(playersStatus) {
+    const playersList = document.getElementById("playersList");
+    playersList.innerHTML = ""; // Clear the list
+
+    if (playersStatus instanceof Map) {
+      playersStatus.forEach((isReady, playerName) => {
+        updatePlayerItem(playersList, playerName, isReady);
+      });
+    } else if (typeof playersStatus === "object") {
+      Object.entries(playersStatus).forEach(([playerName, isReady]) => {
+        updatePlayerItem(playersList, playerName, isReady);
+      });
+    }
+  }
+
+  function updatePlayerItem(playersList, playerName, isReady) {
+    const playerItem = document.createElement("li");
+    const nameElement = document.createElement("span");
+    nameElement.classList.add("player-name");
+    nameElement.textContent = playerName;
+
+    const statusElement = document.createElement("span");
+    statusElement.classList.add("player-status");
+    statusElement.textContent = isReady ? "✓" : "X"; // Use tick and cross symbols
+
+    playerItem.appendChild(nameElement);
+    playerItem.appendChild(statusElement);
+    playersList.appendChild(playerItem);
   }
 
   createRoomButton.addEventListener("click", createRoom, true);

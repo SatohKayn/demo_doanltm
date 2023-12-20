@@ -13,6 +13,21 @@
       body {
         height: 100%;
         overflow: hidden;
+        background-image: linear-gradient(
+          to right top,
+          #d16ba5,
+          #c777b9,
+          #ba83ca,
+          #aa8fd8,
+          #9a9ae1,
+          #8aa7ec,
+          #79b3f4,
+          #69bff8,
+          #52cffe,
+          #41dfff,
+          #46eefa,
+          #5ffbf1
+        );
       }
       body {
         margin: 0;
@@ -25,34 +40,103 @@
         background-color: #f4f4f4;
         height: 100%;
       }
-      button {
-        box-shadow: none;
-        border: 1px solid transparent;
-        font-size: 1.4rem; /* 14px */
-        padding: 0.6rem 1rem;
-        min-height: 3.8rem; /* 38px */
-        outline: none;
-        line-height: 100%;
-        white-space: nowrap;
-        vertical-align: middle;
-        border-radius: 2px;
-        transition: all 0.2s ease-in-out;
+      .btn-21,
+      .btn-21 *,
+      .btn-21 :after,
+      .btn-21 :before,
+      .btn-21:after,
+      .btn-21:before {
+        border: 0 solid;
+        box-sizing: border-box;
+      }
+      .btn-21 {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-appearance: button;
+        background-color: #000;
+        background-image: none;
+        color: #fff;
         cursor: pointer;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+          Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        font-size: 100%;
+        font-weight: 900;
+        line-height: 1.5;
+        margin: 0;
+        -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+        padding: 0;
+        text-transform: uppercase;
       }
-      button.default {
-        background-color: #e8e8e8;
-        color: #333;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+      .btn-21:disabled {
+        cursor: default;
       }
-      button.primary {
-        background-color: #128ff2;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
-        color: #fff;
+      .btn-21:-moz-focusring {
+        outline: auto;
       }
-      button.accent {
-        background-color: #ff4743;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
-        color: #fff;
+      .btn-21 svg {
+        display: block;
+        vertical-align: middle;
+      }
+      .btn-21 [hidden] {
+        display: none;
+      }
+      .btn-21 {
+        border-radius: 99rem;
+        border-width: 2px;
+        overflow: hidden;
+        padding: 0.8rem 3rem;
+        position: relative;
+      }
+      .btn-21 span {
+        mix-blend-mode: difference;
+      }
+      .btn-21:before {
+        -webkit-animation: move-out 0.3s;
+        animation: move-out 0.3s;
+        background: #fff;
+        content: "";
+        height: 100%;
+        left: -100%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        will-change: transform;
+      }
+      .btn-21:hover:before {
+        -webkit-animation: move-in 0.3s forwards;
+        animation: move-in 0.3s forwards;
+      }
+      @-webkit-keyframes move-in {
+        0% {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(100%);
+        }
+      }
+      @keyframes move-in {
+        0% {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(100%);
+        }
+      }
+      @-webkit-keyframes move-out {
+        0% {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(200%);
+        }
+      }
+      @keyframes move-out {
+        0% {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(200%);
+        }
       }
       #menu-page {
         text-align: center;
@@ -62,11 +146,11 @@
       }
       .menu-page-container {
         background: #fff;
-        box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
-        border-radius: 2px;
+        border-radius: 5rem;
         width: 100%;
-        max-width: 500px;
-        display: inline-block;
+        max-width: 40rem;
+        display: flex;
+        flex-direction: column;
         vertical-align: middle;
         position: relative;
         position: absolute;
@@ -75,39 +159,55 @@
         right: 0;
         margin: 0 auto;
         margin-top: 4.2rem; /* 42px */
-        padding: 3.5rem 5.5rem; /* 35px 55px */
+        padding: 2.5rem 2.5rem; /* 35px 55px */
         min-height: 25rem; /* 250px */
         margin-top: -16rem; /* 160px */
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
       }
       .form-control {
         width: 100%;
-        min-height: 38px;
+        min-height: 3rem;
         border: 1px solid #c8c8c8;
+        border-radius: 25rem;
         font-size: 1.5rem; /* 15px */
         margin-bottom: 2rem;
+        margin-top: 2rem;
+        text-align: center;
       }
       #game-page {
-        display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
       }
 
       .game-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
+        background: #fff;
+        box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        min-height: 25rem;
+        margin-top: -16rem;
       }
 
       .game-header {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 0 1rem;
-        height: 4rem; /* 40px */
-        background-color: #fff;
-        box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+        font-weight: bold;
+        background-image: linear-gradient(to left, #553c9a, #b393d3);
+        color: transparent;
+        -webkit-background-clip: text;
+      }
+
+      #GameInfoDisplay {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
       }
 
       #playersList {
@@ -116,14 +216,7 @@
         margin: 0;
         overflow-y: auto;
         height: 100%;
-      }
-
-      #GameInfoDisplay {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
+        flex-grow: 1;
       }
 
       #ReadyButton {
@@ -132,26 +225,44 @@
       .hidden {
         display: none;
       }
+      .main-game-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .player-status {
+        color: red; /* Default to red (not ready) */
+      }
+
+      .player-status:after {
+        content: "X"; /* Default to X (not ready) */
+      }
+
+      .player-status.ready {
+        color: green;
+      }
+
+      .player-status.ready:after {
+        content: "✓"; /* Change to tick when ready */
+      }
     </style>
   </head>
   <body>
     <div id="menu-page">
       <div class="menu-page-container">
-        <h1 class="title">Game nối từ</h1>
+        <div class="game-header">
+          <h1>GAME NỐI TỪ</h1>
+        </div>
         <div class="menu-page-buttons">
           <input
             type="text"
             id="roomInput"
-            placeholder="Room ID"
+            placeholder="Nhập mã phòng..."
             autocomplete="off"
             class="form-control"
           />
-          <button id="create-room-button" class="accent username-submit">
-            Tạo phòng
-          </button>
-          <button id="join-room-button" class="accent username-submit">
-            Vào phòng
-          </button>
+          <button id="create-room-button" class="btn-21">Tạo phòng</button>
+          <button id="join-room-button" class="btn-21">Vào phòng</button>
         </div>
       </div>
     </div>
@@ -160,25 +271,32 @@
         <div class="game-header">
           <div id="roomIdDisplay">
             Room ID:
-            <h2 id="roomId"></h2>
+            <h1 id="roomId"></h1>
           </div>
         </div>
         <div class="connecting">Connecting...</div>
-        <div id="GameInfoDisplay">
-          <button id="ReadyButton" class="button accent">Ready</button>
-          <div id="CurrentPlayerDisplay">
-            Current Player: <span id="CurrentPlayer"></span>
+        <div class="main-game-container">
+          <div id="GameInfoDisplay">
+            <div id="CurrentPlayerDisplay">
+              Current Player: <span id="CurrentPlayer"></span>
+            </div>
+            <div id="TimerDisplay">Time Left: <span id="Timer"></span></div>
+            <div id="WordDisplay">
+              Current Word: <span id="CurrentWord"></span>
+              <input
+                type="text"
+                id="yourAnswer"
+                placeholder="..."
+                class="form-control"
+              />
+            </div>
+            <div id="AnswerValidDisplay">
+              <span id="AnserValid"></span>
+            </div>
+            <button id="ReadyButton" class="btn-21">Ready</button>
           </div>
-          <div id="TimerDisplay">Time Left: <span id="Timer"></span></div>
-          <div id="WordDisplay">
-            Current Word: <span id="CurrentWord"></span>
-            <input type="text" id="yourAnswer" placeholder="..." />
-          </div>
-          <div id="AnswerValidDisplay">
-            Your Answer: <span id="AnserValid"></span>
-          </div>
+          <ul id="playersList"></ul>
         </div>
-        <ul id="playersList"></ul>
       </div>
     </div>
 
